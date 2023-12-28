@@ -25,14 +25,14 @@ module.exports = {
       let messages = await Message.createEach(messageList);
 
       let appointment = await Appointment.create({
-        time: moment().valueOf,
+        time: body.time,
         patient: patient.id,
         // doctor
         conversation: conversation.id
       }).fetch();
 
       await Notification.create({
-        time: moment().valueOf(),
+        time: moment().format(),
         title: 'New appointment created'
       });
 
@@ -53,14 +53,14 @@ module.exports = {
 
       let messages = await Message.createEach(messageList);
       let appointment = await Appointment.create({
-        time: moment().valueOf,
+        time: body.time,
         patient: pat.id,
         // doctor
         conversation: conversation.id
       }).fetch();
 
       await Notification.create({
-        time: moment().valueOf(),
+        time: moment().format(),
         title: 'New appointment created'
       });
 

@@ -16,7 +16,7 @@ module.exports = {
       type: 'string'
     },
     time: {
-      type: 'number'
+      type: 'string'
     }
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
