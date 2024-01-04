@@ -5,7 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const moment = require("moment")
+const moment = require("moment");
+const Appointment = require("../models/Appointment");
 
 module.exports = {
   create: async (req, res) => {
@@ -25,7 +26,7 @@ module.exports = {
       let messages = await Message.createEach(messageList);
 
       let appointment = await Appointment.create({
-        time: body.time,
+        time: moment(body.time).valueOf(),
         patient: patient.id,
         // doctor
         conversation: conversation.id
@@ -53,7 +54,7 @@ module.exports = {
 
       let messages = await Message.createEach(messageList);
       let appointment = await Appointment.create({
-        time: body.time,
+        time: moment(body.time).valueOf,
         patient: pat.id,
         // doctor
         conversation: conversation.id
@@ -66,6 +67,26 @@ module.exports = {
 
       res.ok(appointment);
     }
-  }
+  },
+
+  getDashboardData: async (req, res) => {
+    let recentAppointments = await Appointment.find().sort('createdAt desc').limit(3).populateAll();
+    let upcomingAppointments = await Appointment.find({
+      time: {
+        '>=': new Date().getTime()
+      },
+    }).sort('time ASC').limit(10);
+    let totalAppointments = await Appointment.count();
+    let newPatients = await Patient.count();
+    let existingDoctors = await Doctor.count();
+
+    res.ok({
+      recentAppointments,
+      upcomingAppointments,
+      totalAppointments,
+      newPatients,
+      existingDoctors
+    });
+  },
 
 };

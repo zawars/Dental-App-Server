@@ -37,7 +37,7 @@ module.exports = {
   //   });
   // }
 
-  sendMail: async (options, done) => {
+  sendMail: (options, done) => {
     transporter.sendMail({
       from: 'zawar_shahid93@hotmail.com', //'project.notification@bkw-oneview.com',
       to: options.email,
@@ -52,4 +52,5 @@ module.exports = {
       return done();
     });
   }
+
 };

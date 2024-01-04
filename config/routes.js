@@ -46,8 +46,10 @@ module.exports.routes = {
    'GET /api/v1/user/adminStats': 'UserController.getAdminStats',
    'GET /api/v1/user/search': 'UserController.searchStudent',
    'POST /api/v1/user/register': 'UserController.register',
+   'POST /api/v1/user/sendMail': 'UserController.sendMail',
 
-   // User Routes
+   // Appointment Routes
    'POST /api/v1/appointment': 'AppointmentController.create',
+   'GET /api/v1/appointment/getDashboardData': 'AppointmentController.getDashboardData',
 
 };

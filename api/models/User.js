@@ -25,8 +25,22 @@ module.exports = {
     },
     password: {
       type: 'string',
-      encrypt: true
-    }
+      encrypt: true,
+      required: true,
+    },
+    role: {
+      type: 'string',
+      isIn: ["Admin"],
+      defaultsTo: 'Admin'
+    },
+    isVerified: {
+      type: 'boolean',
+      defaultsTo: true
+    },
+    isPasswordChanged: {
+      type: 'boolean',
+      defaultsTo: false
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -39,5 +53,8 @@ module.exports = {
 
   },
 
-};
+  customToJSON: function () {
+    return _.omit(this, ['password'])
+  },
 
+};

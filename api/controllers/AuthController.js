@@ -13,7 +13,8 @@ module.exports = {
     let data = req.body;
 
     let user = await User.findOne({
-      email: data.email
+      email: data.email,
+      role: 'Admin'
     }).decrypt();
 
     if (user) {

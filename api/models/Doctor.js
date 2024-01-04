@@ -22,7 +22,27 @@ module.exports = {
       type: 'string',
       unique: true,
       required: true
-    }
+    },
+    position: {
+      type: 'string',
+    },
+    isAdministrator: {
+      type: 'string',
+      isIn: ['Yes', 'No'],
+      defaultsTo: 'No'
+    },
+    address: {
+      type: 'string',
+    },
+    openingTime: {
+      type: 'json',
+    },
+    website: {
+      type: 'string',
+    },
+    languages: {
+      type: 'json',
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

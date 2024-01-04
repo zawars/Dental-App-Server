@@ -89,4 +89,18 @@ module.exports = {
     }
   },
 
+  sendMail: async (req, res) => {
+    let body = req.body;
+
+    EmailService.sendMail({
+      email: body.email,
+      subject: body.subject,
+      message: `${body.message}`
+    }, () => {
+      res.ok({
+        message: 'Email Sent.'
+      })
+    });
+  }
+
 };
