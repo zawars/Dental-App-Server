@@ -6,7 +6,9 @@
  */
 
 module.exports = {
-  
+  getRecentNotifications: async (req, res) => {
+    let notifications = await Notification.find().sort('createdAt desc').limit(10).populateAll();
 
+    res.ok(notifications);
+  }
 };
-
