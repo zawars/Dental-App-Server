@@ -6,7 +6,6 @@
  */
 
 const moment = require("moment");
-const Appointment = require("../models/Appointment");
 
 module.exports = {
   create: async (req, res) => {
