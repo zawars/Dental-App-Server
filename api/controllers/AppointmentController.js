@@ -74,7 +74,7 @@ module.exports = {
       time: {
         '>=': new Date().getTime()
       },
-    }).sort('time ASC').limit(10);
+    }).sort('time ASC').limit(10).populateAll();
     let totalAppointments = await Appointment.count();
     let newPatients = await Patient.count();
     let existingDoctors = await Doctor.count();
