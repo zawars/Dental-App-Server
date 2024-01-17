@@ -10,6 +10,7 @@ const moment = require("moment");
 module.exports = {
   create: async (req, res) => {
     let body = req.body;
+    console.log("🚀 ~ file: AppointmentController.js:13 ~ create: ~ body:", body)
 
     let patient = await Patient.findOne({
       phone: body.phone
@@ -24,19 +25,25 @@ module.exports = {
       messageList.forEach(message => message.conversation = conversation.id);
       let messages = await Message.createEach(messageList);
 
-      let appointment = await Appointment.create({
-        time: moment(body.time).valueOf(),
-        patient: patient.id,
-        // doctor
-        conversation: conversation.id
-      }).fetch();
+      if (body.isAppointmentCreated) {
+        let appointment = await Appointment.create({
+          time: moment(body.time).valueOf(),
+          patient: patient.id,
+          // doctor
+          conversation: conversation.id
+        }).fetch();
 
-      await Notification.create({
-        time: moment().format(),
-        title: 'New appointment created'
-      });
+        await Notification.create({
+          time: moment().format(),
+          title: 'New appointment created'
+        });
 
-      res.ok(appointment);
+        res.ok(appointment);
+      } else {
+        res.ok({
+          message: "Conversation Added"
+        });
+      }
     } else {
       let pat = await Patient.create({
         name: body.name,
@@ -52,19 +59,26 @@ module.exports = {
       messageList.forEach(message => message.conversation = conversation.id);
 
       let messages = await Message.createEach(messageList);
-      let appointment = await Appointment.create({
-        time: moment(body.time).valueOf,
-        patient: pat.id,
-        // doctor
-        conversation: conversation.id
-      }).fetch();
 
-      await Notification.create({
-        time: moment().format(),
-        title: 'New appointment created'
-      });
+      if (body.isAppointmentCreated) {
+        let appointment = await Appointment.create({
+          time: moment(body.time).valueOf,
+          patient: pat.id,
+          // doctor
+          conversation: conversation.id
+        }).fetch();
 
-      res.ok(appointment);
+        await Notification.create({
+          time: moment().format(),
+          title: 'New appointment created'
+        });
+
+        res.ok(appointment);
+      } else {
+        res.ok({
+          message: "Conversation Added"
+        });
+      }
     }
   },
 
