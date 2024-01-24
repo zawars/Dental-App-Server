@@ -22,6 +22,12 @@ module.exports = {
           patient: patient.id
         });
 
+        await Conversation.update({
+          id: conversation.id
+        }).set({
+          updatedAt: moment().valueOf()
+        });
+
         let messageList = body.conversation;
         messageList.forEach(message => message.conversation = conversation.id);
         let messages = await Message.createEach(messageList);
@@ -95,7 +101,7 @@ module.exports = {
       await Message.createEach(messageList);
 
       res.ok({
-        message: "Conversation Added"
+        message: "Conversation Added without patient info"
       });
     }
   },
