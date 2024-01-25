@@ -23,7 +23,6 @@ module.exports = {
       convo.messages = groupMessagesByDate(convo.messages);
     });
 
-    conversations.messages = groupedMessages;
     res.ok(conversations);
   },
 
