@@ -40,3 +40,17 @@ module.exports = {
   }
 
 };
+
+const groupMessagesByDate = (messages) => {
+  const groupedMessages = {};
+
+  messages.forEach(message => {
+    const date = moment(message.createdAt).format("YYYY-MM-DD")
+    if (!groupedMessages[date]) {
+      groupedMessages[date] = [];
+    }
+    groupedMessages[date].push(message);
+  });
+
+  return groupedMessages;
+}
