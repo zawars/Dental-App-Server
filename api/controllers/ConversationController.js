@@ -17,18 +17,26 @@ module.exports = {
       limit: 20
     }).sort('updatedAt desc').populateAll();
 
+    conversations.forEach(convo => {
+      convo.messages = groupMessagesByDate(convo.messages);
+    });
+
+    conversations.messages = groupedMessages;
+    res.ok(conversations);
+  },
+
+  groupMessagesByDate: (messages) => {
     const groupedMessages = {};
 
-    conversations.messages.forEach(message => {
-      const date = message.timestamp.toISOString().split('T')[0]; // Extract date from timestamp
+    messages.forEach(message => {
+      const date = moment(message.createdAt).format("YYYY-MM-DD")
       if (!groupedMessages[date]) {
         groupedMessages[date] = [];
       }
       groupedMessages[date].push(message);
     });
 
-    conversations.messages = groupedMessages;
-    res.ok(conversations);
+    return groupedMessages;
   }
 
 };
