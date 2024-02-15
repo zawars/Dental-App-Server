@@ -14,10 +14,7 @@ module.exports = {
   },
 
   index: async (req, res) => {
-    let conversations = await Conversation.find().paginate({
-      page: req.query.page,
-      limit: 20
-    }).sort('updatedAt desc').populateAll();
+    let conversations = await Conversation.find().paginate(req.query.page, 20).sort('updatedAt desc').populateAll();
 
     conversations.forEach(convo => {
       convo.messages = groupMessagesByDate(convo.messages);
