@@ -34,8 +34,8 @@ module.exports = {
 
         if (body.isAppointmentCreated) {
           let appointment = await Appointment.create({
-            // time: moment(body.time).valueOf(),
-            time: moment().add(1, 'days').valueOf(),
+            time: moment(body.time).valueOf(),
+            // time: moment().add(1, 'days').valueOf(),
             patient: patient.id,
             // doctor
             conversation: conversation.id
@@ -70,8 +70,8 @@ module.exports = {
 
         if (body.isAppointmentCreated) {
           let appointment = await Appointment.create({
-            // time: moment(body.time).valueOf(),
-            time: moment().add(1, 'days').valueOf(),
+            time: moment(body.time).valueOf(),
+            // time: moment().add(1, 'days').valueOf(),
             patient: pat.id,
             // doctor
             conversation: conversation.id
