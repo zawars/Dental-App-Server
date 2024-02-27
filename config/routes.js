@@ -61,5 +61,8 @@ module.exports.routes = {
   // Notification Routes
   'GET /api/v1/notification/recent/fetch': 'NotificationController.getRecentNotifications',
 
+  // Patient Routes
+  'GET /api/v1/patient': 'PatientController.index',
+
 
 };

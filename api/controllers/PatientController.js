@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-  
+  index: async (req, res) => {
+    const patients = await Patient.find().paginate(req.query.page, 20).sort('updatedAt desc').populateAll();
+  }
 
 };
-
