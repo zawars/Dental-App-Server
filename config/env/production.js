@@ -51,7 +51,7 @@ module.exports = {
     ***************************************************************************/
     default: {
       adapter: 'sails-mongo',
-      url: 'mongodb://localhost:27017/dental-app',
+      url: 'mongodb://dev:devtotestlocalhost:27017/dental-app',
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -349,7 +349,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-  port: 1338,
+  port: 3000,
 
 
 
