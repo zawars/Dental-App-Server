@@ -15,6 +15,9 @@ module.exports = {
     time: {
       type: 'number'
     },
+    callerName: {
+      type: 'string'
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

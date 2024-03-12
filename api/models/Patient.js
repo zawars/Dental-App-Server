@@ -15,6 +15,9 @@ module.exports = {
     name: {
       type: 'string'
     },
+    age: {
+      type: 'number'
+    },
     phone: {
       type: 'string',
       unique: true,
