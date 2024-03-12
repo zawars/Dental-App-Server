@@ -101,6 +101,26 @@ module.exports = {
         message: 'Email Sent.'
       })
     });
-  }
+  },
+
+  searchStudent: async (req, res) => {
+    let nameQuery = req.query.name;
+
+    let usersList = await User.find({
+      or: [{
+          firstName: {
+            contains: nameQuery
+          }
+        },
+        {
+          lastName: {
+            contains: nameQuery
+          }
+        }
+      ]
+    }).limit(50).populateAll();
+
+    res.ok(usersList);
+  },
 
 };

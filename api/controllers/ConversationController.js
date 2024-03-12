@@ -35,7 +35,19 @@ module.exports = {
     });
 
     return groupedMessages;
-  }
+  },
+
+  search: async (req, res) => {
+    let nameQuery = req.query.name;
+
+    let convs = await Conversation.find({
+      name: {
+        contains: nameQuery
+      }
+    }).limit(20).populateAll();
+
+    res.ok(convs);
+  },
 
 };
 

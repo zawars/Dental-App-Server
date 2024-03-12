@@ -57,12 +57,16 @@ module.exports.routes = {
   // Conversation Routes
   'GET /api/v1/conversation/chatBox': 'ConversationController.getChatBoxData',
   'GET /api/v1/conversation': 'ConversationController.index',
+  'GET /api/v1/conversation/search': 'ConversationController.search',
 
   // Notification Routes
   'GET /api/v1/notification/recent/fetch': 'NotificationController.getRecentNotifications',
 
   // Patient Routes
   'GET /api/v1/patient': 'PatientController.index',
+
+  // Doctor Routes
+  'GET /api/v1/doctor/search': 'DoctorController.searchDoctor',
 
 
 };
