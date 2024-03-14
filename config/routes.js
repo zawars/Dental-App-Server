@@ -68,5 +68,8 @@ module.exports.routes = {
   // Doctor Routes
   'GET /api/v1/doctor/search': 'DoctorController.searchDoctor',
 
+  // Slot Routes
+  'POST /api/v1/slot/available': 'SlotController.isSlotAvailable',
+
 
 };

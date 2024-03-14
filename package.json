@@ -17,7 +17,7 @@
     "sails-hook-grunt": "^4.0.0",
     "sails-hook-orm": "^3.0.1",
     "sails-hook-sockets": "^2.0.0",
-    "sails-mongo": "git+https://github.com/daviddang91/sails-mongo.git",
+    "sails-mongo": "^2.1.0",
     "sendmail": "^1.6.1",
     "speakeasy": "^2.0.0"
   },

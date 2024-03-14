@@ -34,7 +34,13 @@ module.exports = {
     address: {
       type: 'string',
     },
-    openingTime: {
+    startTime: {
+      type: 'number',
+    },
+    endTime: {
+      type: 'number',
+    },
+    workingDays: {
       type: 'json',
     },
     website: {

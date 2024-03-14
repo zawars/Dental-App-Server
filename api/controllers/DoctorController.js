@@ -9,13 +9,21 @@ module.exports = {
   searchDoctor: async (req, res) => {
     let nameQuery = req.query.name;
 
-    let docs = await Doctor.find({
-      name: {
-        contains: nameQuery
-      }
-    }).limit(20).populateAll();
+    if (nameQuery) {
+      let docs = await Doctor.find({
+        name: {
+          'contains': nameQuery.toString()
+        }
+      }).meta({
+        makeLikeModifierCaseInsensitive: true,
+      });
 
-    res.ok(docs);
+      res.ok(docs);
+    } else {
+      res.ok({
+        message: 'query parameter name must not be null'
+      });
+    }
   },
 
 };

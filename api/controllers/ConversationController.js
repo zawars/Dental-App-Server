@@ -40,13 +40,21 @@ module.exports = {
   search: async (req, res) => {
     let nameQuery = req.query.name;
 
-    let convs = await Conversation.find({
-      name: {
-        contains: nameQuery
-      }
-    }).limit(20).populateAll();
+    if (nameQuery) {
+      let convs = await Conversation.find({
+        name: {
+          contains: nameQuery
+        }
+      }).meta({
+        makeLikeModifierCaseInsensitive: true,
+      }).limit(20).populateAll();
 
-    res.ok(convs);
+      res.ok(convs);
+    } else {
+      res.ok({
+        message: 'query parameter name must not be null'
+      });
+    }
   },
 
 };

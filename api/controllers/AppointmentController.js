@@ -33,11 +33,17 @@ module.exports = {
         let messages = await Message.createEach(messageList);
 
         if (body.isAppointmentCreated) {
+          let slot = await Slot.create({
+            datetime: moment(body.time).valueOf(),
+            // doctor: body.doctor
+          }).fetch();
+
           let appointment = await Appointment.create({
             time: moment(body.time).valueOf(),
             // time: moment().add(1, 'days').valueOf(),
             patient: patient.id,
             // doctor
+            // slot: slot.id,
             conversation: conversation.id
           }).fetch();
 
@@ -69,11 +75,17 @@ module.exports = {
         let messages = await Message.createEach(messageList);
 
         if (body.isAppointmentCreated) {
+          let slot = await Slot.create({
+            datetime: moment(body.time).valueOf(),
+            // doctor: body.doctor
+          }).fetch();
+
           let appointment = await Appointment.create({
             time: moment(body.time).valueOf(),
             // time: moment().add(1, 'days').valueOf(),
             patient: pat.id,
-            // doctor
+            // doctor,
+            // slot: slot.id,
             conversation: conversation.id
           }).fetch();
 
