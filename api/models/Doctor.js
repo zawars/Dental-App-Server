@@ -17,6 +17,8 @@ module.exports = {
     },
     phone: {
       type: 'string',
+      unique: true,
+      required: true
     },
     email: {
       type: 'string',
@@ -35,10 +37,12 @@ module.exports = {
       type: 'string',
     },
     startTime: {
-      type: 'number',
+      type: 'string',
+      defaultsTo: '2023-01-01T09:00:00+05:00'
     },
     endTime: {
-      type: 'number',
+      type: 'string',
+      defaultsTo: '2023-01-01T18:00:00+05:00'
     },
     workingDays: {
       type: 'json',

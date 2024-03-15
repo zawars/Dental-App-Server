@@ -17,7 +17,7 @@ module.exports = {
         phone: body.phone
       });
 
-      if (patient) {
+      if (patient) { // Existing patient
         let conversation = await Conversation.findOne({
           patient: patient.id
         });
@@ -33,39 +33,52 @@ module.exports = {
         let messages = await Message.createEach(messageList);
 
         if (body.isAppointmentCreated) {
-          let slot = await Slot.create({
-            datetime: moment(body.time).valueOf(),
-            // doctor: body.doctor
-          }).fetch();
-
-          let appointment = await Appointment.create({
-            time: moment(body.time).valueOf(),
-            // time: moment().add(1, 'days').valueOf(),
-            patient: patient.id,
-            // doctor
-            // slot: slot.id,
-            conversation: conversation.id
-          }).fetch();
-
-          await Notification.create({
-            time: moment().format(),
-            title: 'New appointment created'
+          let doctor = await Doctor.findOne({
+            phone: body.doctor
           });
 
-          res.ok(appointment);
+          let slot;
+          if (doctor) {
+            slot = await Slot.create({
+              datetime: moment(body.time).valueOf(),
+              doctor: doctor.id
+            }).fetch();
+
+            let appointment = await Appointment.create({
+              time: moment(body.time).valueOf(),
+              // time: moment().add(1, 'days').valueOf(),
+              patient: patient.id,
+              doctor: doctor.id,
+              slot: slot.id,
+              conversation: conversation.id,
+              callerName: body.callerName,
+            }).fetch();
+
+            await Notification.create({
+              time: moment().format(),
+              title: 'New appointment created'
+            });
+
+            res.ok(appointment);
+          } else {
+            res.badRequest({
+              message: 'No doctor found with provided phone'
+            });
+          }
         } else {
           res.ok({
             message: "Conversation Added"
           });
         }
-      } else {
+      } else { // New Patient
         let pat = await Patient.create({
-          name: body.name,
-          phone: body.phone
+          name: body.patientName,
+          phone: body.phone,
+          age: body.patientAge
         }).fetch();
 
         let conversation = await Conversation.create({
-          name: body.name,
+          name: body.patientName,
           patient: pat.id
         }).fetch();
 
@@ -75,26 +88,38 @@ module.exports = {
         let messages = await Message.createEach(messageList);
 
         if (body.isAppointmentCreated) {
-          let slot = await Slot.create({
-            datetime: moment(body.time).valueOf(),
-            // doctor: body.doctor
-          }).fetch();
-
-          let appointment = await Appointment.create({
-            time: moment(body.time).valueOf(),
-            // time: moment().add(1, 'days').valueOf(),
-            patient: pat.id,
-            // doctor,
-            // slot: slot.id,
-            conversation: conversation.id
-          }).fetch();
-
-          await Notification.create({
-            time: moment().format(),
-            title: 'New appointment created'
+          let doctor = await Doctor.findOne({
+            phone: body.doctor
           });
 
-          res.ok(appointment);
+          let slot;
+          if (doctor) {
+            slot = await Slot.create({
+              datetime: moment(body.time).valueOf(),
+              doctor: doctor.id
+            }).fetch();
+
+            let appointment = await Appointment.create({
+              time: moment(body.time).valueOf(),
+              // time: moment().add(1, 'days').valueOf(),
+              patient: pat.id,
+              doctor: doctor.id,
+              slot: slot.id,
+              conversation: conversation.id,
+              callerName: body.callerName
+            }).fetch();
+
+            await Notification.create({
+              time: moment().format(),
+              title: 'New appointment created'
+            });
+
+            res.ok(appointment);
+          } else {
+            res.badRequest({
+              message: 'No doctor found with provided phone'
+            });
+          }
         } else {
           res.ok({
             message: "Conversation Added"
